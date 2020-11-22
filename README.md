@@ -24,3 +24,5 @@ deactivate
 ```
 
 Setup the data base by looking at the setup.sql file for the tables. Modify the database.py connection parameters for the db as you see fit.
+
+PostgreSQL database with a Flask server.
