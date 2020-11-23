@@ -284,7 +284,7 @@ class db():
         cursor = self.connection.cursor()
         sql = """SELECT *
                     FROM Game
-                    WHERE name = %s;
+                    WHERE name LIKE '%s%';
                     """
         data = ["%"+query_string+"%"]
         cursor.execute(sql,data)
@@ -295,7 +295,8 @@ class db():
 
         return results
     def __del__(self):
-        self.connection.close()
+        if self.connection is not None:
+            self.connection.close()
 
 
 

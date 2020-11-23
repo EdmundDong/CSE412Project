@@ -1,5 +1,3 @@
-{%for game in games:%}
-
 <table>
     <tr>
         <th>ID</th>
@@ -8,13 +6,14 @@
         <th>UserRating</th>
         <th>CriticRating</th>
         <th>LastUpdate</th>
+		<th>Likes</th>
     </tr>
+	{%for game in games:%}
     <tr>
+		
         {% for game_element in game: %}
             <td>{{game_element}}</td>
         {% endfor %}
     </tr>
+	{%endfor%}
 </table>
-
-
-{%endfor%}
