@@ -6,14 +6,8 @@ class db():
     def __init__(self):
         self.connection = None
         try:
-            try:
-                self.connection = psycopg2.connect(database = "eedong")
-            except:
-                try:
-                    self.connection = psycopg2.connect(host = "localhost", port = "8088", database = "GameDB")
-                except: 
-                    print("Error connection with database")
-                    exit(0)
+            self.connection = psycopg2.connect(host = "localhost", port = "8088", database = "GameDB")
+
         except:
             print("Error connection with database")
             exit(0)
