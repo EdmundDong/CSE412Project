@@ -1,7 +1,9 @@
 from app import flaskapp
-from flask import request, render_template
+from flask import request, render_template, jsonify
 
 from app import database
+
+
 
 
 db_instance = database.db()
@@ -47,6 +49,38 @@ def search():
                             page = "search", 
                             display_data = display_data, 
                             games = games)
+@flaskapp.route("/register/")
+def register_page():
+    return render_template("main.html", 
+                            page = "register")
+
+@flaskapp.route("/api/register/", methods = ["POST"])
+def register():
+    body = request.get_json()
+    
+    found = db_instance.find_user(body["username"])
+
+    if not found:
+        user_id = db_instance.create_user(body["username"], body["password"])
+        return jsonify({"user_id": user_id, "username": body["username"]})
+    return jsonify({"error": "something went wrong"})
+
+@flaskapp.route("/login/")
+def login_page():
+    return render_template("main.html",
+                            page = "login")
+
+@flaskapp.route("/api/login/", methods=["POST"])
+def login():
+    body = request.get_json()
+
+    authenticate = db_instance.user_authenticate(body["username"], body["password"])
+
+    if authenticate[0] is None:
+        return jsonify({"error": authenticate[1]})
+   
+    return jsonify({"user_id": authenticate[0], "username": username})
+        
 
 @flaskapp.route('/profile/')
 def profile():
