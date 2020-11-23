@@ -27,7 +27,7 @@ def search():
     if "type" in request.args:    
         search_type = request.args.get("type")
 
-    if "query" in requrest.args:
+    if "query" in request.args:
         query = request.args.get("query")
 
     if search_type == None:

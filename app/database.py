@@ -284,7 +284,7 @@ class db():
         cursor = self.connection.cursor()
         sql = """SELECT *
                     FROM Game
-                    WHERE name = %s;
+                    WHERE name LIKE '%s%';
                     """
         data = ["%"+query_string+"%"]
         cursor.execute(sql,data)
