@@ -54,7 +54,7 @@ def search():
         while index < limit:
             output_games.append(games[index])
             index += 1
-
+    
     return render_template("main.html",
                             page = "search", 
                             display_data = display_data, 

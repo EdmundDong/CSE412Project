@@ -6,7 +6,7 @@ document.getElementById("searchform").addEventListener("submit", function(e){
 
     window.location.href = "/search/?type=word&query=" + text
 	console.log(window.location.href)
-    window.location.reload()
+    //window.location.reload()
 })
 /*
 document.getElementById("sort_alph_button").addEventListener("click", function(){

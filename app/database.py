@@ -304,9 +304,16 @@ class db():
 
     def select_games_by_query_string(self, query_string):
         cursor = self.connection.cursor()
-        sql = """SELECT *
-                    FROM Game
-                    WHERE name LIKE %s;
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
+                    FROM Genre, HasGenre, Game 
+                            LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                            FROM Likes
+                            GROUP BY gameId) AS T
+                    ON Game.gameId = T.gameId
+                    WHERE Game.gameid = HasGenre.gameid
+                    AND HasGenre.genreid = Genre.genreid
+                    AND Game.name LIKE %s
+                    ORDER BY T.likes_amount DESC NULLS LAST;
                     """
         data = ["%"+query_string+"%"]
         cursor.execute(sql,data)
