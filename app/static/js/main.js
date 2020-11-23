@@ -1,5 +1,5 @@
-function main(){
-    console.log("hello world")
+function logout(){
+    localStorage.removeItem("gamedb_auth")
+
+    window.location.reload()
 }
-main()
-console.log("hello")

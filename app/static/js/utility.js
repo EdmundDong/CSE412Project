@@ -24,7 +24,7 @@ function auth(username, password, method){
             console.log(resp["error"])
         }else{
             localStorage.setItem("gamedb_auth", JSON.stringify(resp))
+            window.location.href = "../profile"
         }
     })
 }
-

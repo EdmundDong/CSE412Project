@@ -76,11 +76,48 @@ def login():
     return jsonify({"user_id": authenticate[0], "username": username})
         
 
-@flaskapp.route('/profile/')
+@flaskapp.route('/profile/', methods=["GET"])
 def profile():
-    return "Profile page"
+    return render_template("main.html", 
+                            page = "profile")
+
+@flaskapp.route("/api/profile/<int:user_id>", methods=["GET"])
+def profile_info(user_id):
+
+    games = db_instance.select_games_liked_by_user(user_id)
+
+    return jsonify({"games": games})
 
 @flaskapp.route('/game/<int:game_id>/')
 def game(game_id):
     games = db_instance.select_game_by_gameid(game_id)
     return render_template("main.html", page = "game", games = games)
+
+@flaskapp.route('/api/game/<int:game_id>/<int:user_id>', methods=["GET"])
+def user_likes_game(game_id, user_id):
+    games = db_instance.select_games_liked_by_user(user_id)
+
+    like = False
+    for game in games:
+        if game[0] == game_id:
+            like = True
+            break
+    
+    return jsonify({"like": like})
+
+@flaskapp.route("/api/game/likes/<int:game_id>/<int:user_id>", methods=["GET"])
+def user_update_likes(game_id, user_id):
+    games = db_instance.select_games_liked_by_user(user_id)
+
+    like = False
+    for game in games:
+        if game[0] == game_id:
+            like = True
+            break
+    
+    if like:
+        db_instance.remove_user_like(game_id, user_id)
+    else:
+        db_instance.add_user_like(game_id, user_id)
+
+    return jsonify({"msg": "done"})

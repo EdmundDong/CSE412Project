@@ -82,11 +82,27 @@ class db():
 
         return
 
-    def remove_user_like(self, game_name, user_id):
+    def remove_user_like(self, game_id, user_id):
         cursor = self.connection.cursor()
 
-        sql = "DELETE FROM Likes WHERE userId = %s AND gameId = (SELECT gameId FROM Game WHERE name = %s)";
-        data = [user_id, game_name]
+        sql = "DELETE FROM Likes WHERE userId = %s AND gameId = %s";
+        data = [user_id, game_id]
+
+        cursor.execute(sql, data)
+
+        connection.commit()
+
+        cursor.close()
+
+        return
+
+    def add_user_like(self, game_id, user_id):
+        cursor = self.connection.cursor()
+
+        timestamp = datetime.now()
+
+        sql = "INSERT INTO Likes VALUES(%s, %s, %s)";
+        data = [user_id, game_id, timestamp]
 
         cursor.execute(sql, data)
 

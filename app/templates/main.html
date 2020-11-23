@@ -14,6 +14,8 @@
         {% include 'login.html' %}
     {%elif page == 'register': %}
         {% include 'register.html' %} 
+    {%elif page == 'profile.html' %}
+        {% include 'profile.html' %}
     {%endif%}
     <script src = "/static/js/main.js"></script>
     {%if page == 'login' or page == 'register'%}
@@ -21,7 +23,19 @@
     {%endif%}
 
 
-    
+
+    {%if page == 'home':%}
+        <script src = "/static/js/home.js"></script>
+    {%elif page == 'game':%}
+    <script src = "/static/js/game.js"></script>
+	{%elif page == 'login':%}
+    <script src = "/static/js/login.js"></script>
+    {%elif page == 'register': %}
+    <script src = "/static/js/register.js"></script>
+    {%elif page == 'profile.html' %}
+    <script src = "/static/js/profile.js"></script>
+    {%endif%}
+
 
 </body>
 </html>
