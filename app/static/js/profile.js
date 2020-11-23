@@ -20,6 +20,8 @@ if ("gamedb_auth" in localStorage){
     let auth = localStorage.getItem("gamedb_auth")
     let tokenjs = JSON.parse(auth)
     get_profile_likes(tokenjs["user_id"]).then(function(resp){
+        
+        
         populate_profile_likes(resp)
     })
 }else{
