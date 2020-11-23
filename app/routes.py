@@ -17,10 +17,14 @@ def search():
     search_type = None
     query =  None
     games = None
+    page = 1
 
     display_data = True
     if "type" in request.args:    
         search_type = request.args.get("type")
+
+    if "page" in request.args:
+        page = int(request.args.get("page"))
 
     if "query" in request.args:
         query = request.args.get("query")
@@ -39,10 +43,23 @@ def search():
     else:
         display_data = False
 
+    index = (page - 1) * 10
+    if index >= len(games):
+        index = 0
+        page = 1
+    limit = min(index+10, len(games))
+
+    output_games = []
+
+    while index < limit:
+        output_games.append(games[index])
+        index += 1
+
     return render_template("main.html",
                             page = "search", 
                             display_data = display_data, 
-                            games = games)
+                            games = output_games, 
+                            page_num = page)
 
 @flaskapp.route("/register/", methods=["GET"])
 def register_page():
