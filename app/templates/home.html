@@ -1,0 +1,20 @@
+{%for game in games:%}
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>ReleaseDate</th>
+        <th>UserRating</th>
+        <th>CriticRating</th>
+        <th>LastUpdate</th>
+    </tr>
+    <tr>
+        {% for game_element in game: %}
+            <td>{{game_element}}</td>
+        {% endfor %}
+    </tr>
+</table>
+
+
+{%endfor%}
