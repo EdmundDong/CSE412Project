@@ -8,6 +8,7 @@ def popular():
     #temp test data
     #top_10_games = [(1, "Skyrim", "Temp", 1.0, 1.0, "Temp")]
     top_10_games = db_instance.select_games_sort_by_likes_10()
+    print(top_10_games)
     return render_template("main.html", page = "home", games=top_10_games)
 
 @flaskapp.route('/search/')

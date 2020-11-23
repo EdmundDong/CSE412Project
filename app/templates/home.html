@@ -3,9 +3,10 @@
       <div class = "col-md-12" id = "titleColumn">
         <br>
         <h1 class = "title" style = "text-align: center;">Top 10 Games</h1>
+		</br>
       </div>
     </div>
-    <% for game in games: %>
+    {% for game in games: %}
     <div class = "row" style="width: 80%; border: 1px solid black; border-radius: 10px; margin: auto; padding: 15px">
         <div class ="col-md-6" id = "game1">
             <h2> {{game[1]}}</h2>
@@ -22,5 +23,6 @@
             </div>
         </div>
     </div>
-    <% endfor %>
+	</br>
+    {% endfor %}
   </div>
