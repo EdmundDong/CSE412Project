@@ -12,10 +12,16 @@
         {% include 'game.html' %}
 	{%elif page == 'login':%}
         {% include 'login.html' %}
+    {%elif page == 'register': %}
+        {% include 'register.html' %} 
     {%endif%}
     <script src = "/static/js/main.js"></script>
+    {%if page == 'login' or page == 'register'%}
+        <script src = "/static/js/utility.js"></script>
+    {%endif%}
 
 
+    
 
 </body>
 </html>
