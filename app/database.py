@@ -6,9 +6,10 @@ class db():
     def __init__(self):
         self.connection = None
         try:
-            self.connection = psycopg2.connect(host = "localhost", port = "8088", database = "GameDB")
+            self.connection = psycopg2.connect(database = "eedong")
+            #self.connection = psycopg2.connect(host = "localhost", port = "8088", database = "GameDB")
 
-        except _:
+        except:
             print("Error connection with database")
             exit(0)
 
@@ -295,7 +296,8 @@ class db():
 
         return results
     def __del__(self):
-        self.connection.close()
+        if self.connection is not None:
+            self.connection.close()
 
 
 

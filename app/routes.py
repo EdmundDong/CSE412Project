@@ -33,7 +33,7 @@ def search():
     if search_type == None:
         display_data = False
 
-    elif search_type == "word" and query not None:
+    elif search_type == "word" and query is not None:
         games = db_instance.select_games_by_query_string(query)
 
     elif search_type == "likes_desc":
