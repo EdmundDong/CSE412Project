@@ -52,6 +52,11 @@ def search():
 def profile():
     return "Profile page"
 
+@flaskapp.route('/login/')
+def login():
+    return render_template("main.html", page = "login")
+
 @flaskapp.route('/game/<int:game_id>/')
 def game(game_id):
-    return "Page for game #" + str(game_id)
+    games = db_instance.select_game_by_gameid(game_id)
+    return render_template("main.html", page = "game", games = games)

@@ -72,7 +72,6 @@ class db():
         else:
             return (result[0], "Success")
 
-
     def update_game_rating(self, game_name, rating):
         cursor = self.connection.cursor()
 
@@ -290,7 +289,7 @@ class db():
         cursor = self.connection.cursor()
         sql = """SELECT *
                     FROM Game
-                    WHERE name LIKE '%s%';
+                    WHERE name LIKE %s;
                     """
         data = ["%"+query_string+"%"]
         cursor.execute(sql,data)
@@ -300,6 +299,22 @@ class db():
         cursor.close()
 
         return results
+        
+    def select_game_by_gameid(self, gameid):
+        cursor = self.connection.cursor()
+        sql = """SELECT *
+                    FROM Game
+                    WHERE gameid = %s;
+                    """
+        data = [str(gameid)]
+        cursor.execute(sql,data)
+
+        results = cursor.fetchall()
+
+        cursor.close()
+
+        return results
+
     def __del__(self):
         if self.connection is not None:
             self.connection.close()
