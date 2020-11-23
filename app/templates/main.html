@@ -42,6 +42,8 @@
         {% include 'home.html' %}
     {%elif page == 'game':%}
         {% include 'game.html' %}
+	{%elif page == 'search':%}
+        {% include 'search.html' %}
 	{%elif page == 'login':%}
         {% include 'login.html' %}
     {%elif page == 'register': %}
@@ -64,6 +66,8 @@
         <script src = "/static/js/home.js"></script>
     {%elif page == 'game':%}
     <script src = "/static/js/game.js"></script>
+	{%elif page == 'search':%}
+    <script src = "/static/js/search.js"></script>
 	{%elif page == 'login':%}
     <script src = "/static/js/login.js"></script>
     {%elif page == 'register': %}

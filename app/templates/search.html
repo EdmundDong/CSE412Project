@@ -1,0 +1,62 @@
+<div class="container">
+	<div class="row">
+	  <div class = "col-md-12" id = "titleColumn">
+		<br>
+		<h1 class = "title" style = "text-align: center;">Game Search</h1>
+	  </div>
+	</div>
+	<form style="width:80%; margin: auto" id="searchform">
+		<div class="form-group">
+			<input type="text" class="form-control" id="game" aria-describedby="game" placeholder="Search game">
+		</div>  
+	</form> 
+	<div class = "row" style = "margin: auto; padding: 20px">
+		<h5> Sort by: </h5>
+
+		<div class = "col-sm-2" id = sort style = "margin: auto">
+			<button type="date" class="btn btn-primary" style="width:100%">Release Date</button>
+		</div>
+		<div class = "col-sm-2" id = sort style = "margin: auto">
+			<button type="date" class="btn btn-primary" style="width:100%">User Rating</button>
+		</div>
+		<div class = "col-sm-2" id = sort style = "margin: auto">
+			<button type="date" class="btn btn-primary" style="width:100%">Critic Rating</button>
+		</div>
+		<div class = "col-sm-2" id = sort style = "margin: auto">
+			<button type="date" class="btn btn-primary" style="width:100%">Likes</button>
+		</div>
+		<div class = "col-sm-2" id = sort style = "margin: auto">
+			<button type="date" class="btn btn-primary" style="width:100%">Name</button>
+		</div>
+	</div>
+	{% for game in games: %}
+	<div class = "row" style="width: 80%; border: 1px solid black; border-radius: 10px; margin: auto; padding: 15px">
+		<div class ="col-md-6" id = "game1">
+			<h2>Skyrim</h2>
+		</div>
+		<div class ="col-md-6">
+			<div class = "row">
+				<h3> Likes: <span>25</span></h3>
+			</div>
+			<div class = "row">
+				<h3> Last Updated: <span>July</span></h3>
+			</div>
+			<div class = "row">
+				<h3> Genre: <span>MMORPG</span></h3>
+			</div>
+		</div>
+	</div>
+	</br>
+	{% endfor %}
+	<div class = "row" style= "margin: auto; padding: 20px;">
+	  <nav aria-label="Page navigation example" style="margin: auto;">
+		<ul class="pagination">
+		  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+		  <li class="page-item"><a class="page-link" href="#">1</a></li>
+		  <li class="page-item"><a class="page-link" href="#">2</a></li>
+		  <li class="page-item"><a class="page-link" href="#">3</a></li>
+		  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+		</ul>
+	  </nav>
+	</div>
+  </div>

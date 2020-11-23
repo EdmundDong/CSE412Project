@@ -1,12 +1,15 @@
-document.getElementById("search_button").addEventListener("click", function(){
-    let text = document.getElementById("search_field").value
+console.log(document.getElementById("searchform"))
+document.getElementById("searchform").addEventListener("submit", function(e){
+    e.preventDefault()
+	let text = document.getElementById("game").value
     window.location.href += "?type=word&query=" + text
-
-    window.location.reload()
+	console.log(window.location.href)
+    //window.location.reload()
 })
-
+/*
 document.getElementById("sort_alph_button").addEventListener("click", function(){
     window.location.href += "?type=name_asc"
 
     window.location.reload()
 })
+*/

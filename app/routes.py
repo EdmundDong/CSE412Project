@@ -42,18 +42,18 @@ def search():
         games = db_instance.select_games_sort_by_alph()
     else:
         display_data = False
-
-    index = (page - 1) * 10
-    if index >= len(games):
-        index = 0
-        page = 1
-    limit = min(index+10, len(games))
-
+    
     output_games = []
-
-    while index < limit:
-        output_games.append(games[index])
-        index += 1
+    
+    if games is not None:
+        index = (page - 1) * 10
+        if index >= len(games):
+            index = 0
+            page = 1
+        limit = min(index+10, len(games))
+        while index < limit:
+            output_games.append(games[index])
+            index += 1
 
     return render_template("main.html",
                             page = "search", 
