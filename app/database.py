@@ -208,14 +208,16 @@ class db():
 
     def select_games_sort_by_likes_10(self):
         cursor = self.connection.cursor()
-        sql = """SELECT Game.*, T.likes_amount
-                 FROM Game
-                 LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
-                            FROM Likes
-                            GROUP BY gameId) AS T
-                 ON Game.gameId = T.gameId
-                 ORDER BY T.likes_amount DESC NULLS LAST
-                 LIMIT 10;"""
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
+                FROM Genre, HasGenre, Game 
+                        LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                        FROM Likes
+                        GROUP BY gameId) AS T
+                ON Game.gameId = T.gameId
+                WHERE Game.gameid = HasGenre.gameid
+                AND HasGenre.genreid = Genre.genreid
+                ORDER BY T.likes_amount DESC NULLS LAST
+                LIMIT 10;"""
 
         cursor.execute(sql)
 
