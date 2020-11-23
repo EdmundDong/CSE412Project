@@ -1,10 +1,12 @@
 console.log(document.getElementById("searchform"))
 document.getElementById("searchform").addEventListener("submit", function(e){
     e.preventDefault()
-	let text = document.getElementById("game").value
-    window.location.href += "?type=word&query=" + text
+    let text = document.getElementById("game").value
+    
+
+    window.location.href = "/search/?type=word&query=" + text
 	console.log(window.location.href)
-    //window.location.reload()
+    window.location.reload()
 })
 /*
 document.getElementById("sort_alph_button").addEventListener("click", function(){
