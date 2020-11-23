@@ -8,7 +8,7 @@ class db():
         try:
             self.connection = psycopg2.connect(host = "localhost", port = "8088", database = "GameDB")
 
-        except _:
+        except:
             print("Error connection with database")
             exit(0)
 
