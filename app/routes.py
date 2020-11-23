@@ -1,13 +1,7 @@
 from app import flaskapp
 from flask import request, render_template, jsonify
-
 from app import database
-
-
-
-
 db_instance = database.db()
-
 
 @flaskapp.route('/')
 def popular():
@@ -44,12 +38,12 @@ def search():
     else:
         display_data = False
 
-
     return render_template("main.html",
                             page = "search", 
                             display_data = display_data, 
                             games = games)
-@flaskapp.route("/register/")
+
+@flaskapp.route("/register/", methods=["GET"])
 def register_page():
     return render_template("main.html", 
                             page = "register")
@@ -65,7 +59,7 @@ def register():
         return jsonify({"user_id": user_id, "username": body["username"]})
     return jsonify({"error": "something went wrong"})
 
-@flaskapp.route("/login/")
+@flaskapp.route("/login/", methods=["GET"])
 def login_page():
     return render_template("main.html",
                             page = "login")
@@ -85,10 +79,6 @@ def login():
 @flaskapp.route('/profile/')
 def profile():
     return "Profile page"
-
-@flaskapp.route('/login/')
-def login():
-    return render_template("main.html", page = "login")
 
 @flaskapp.route('/game/<int:game_id>/')
 def game(game_id):

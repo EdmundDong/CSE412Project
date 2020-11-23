@@ -7,10 +7,12 @@ class db():
         self.connection = None
         try:
             self.connection = psycopg2.connect(host = "localhost", port = "8088", database = "GameDB")
-
         except:
-            print("Error connection with database")
-            exit(0)
+            try:
+                self.connection = psycopg2.connect(database = "GameDB")
+            except:
+                print("Error connection with database")
+                exit(0)
 
     #find if user exists
     def find_user(self, username):
@@ -300,7 +302,7 @@ class db():
                     FROM Game
                     WHERE gameid = %s;
                     """
-        data = [str(gameid)]
+        data = [gameid]
         cursor.execute(sql,data)
 
         results = cursor.fetchall()
