@@ -85,13 +85,13 @@ def login_page():
 @flaskapp.route("/api/login/", methods=["POST"])
 def login():
     body = request.get_json()
-
+    
     authenticate = db_instance.user_authenticate(body["username"], body["password"])
 
     if authenticate[0] is None:
         return jsonify({"error": authenticate[1]})
    
-    return jsonify({"user_id": authenticate[0], "username": username})
+    return jsonify({"user_id": authenticate[0], "username": body["username"]})
         
 
 @flaskapp.route('/profile/', methods=["GET"])

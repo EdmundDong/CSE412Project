@@ -49,7 +49,7 @@ class db():
 
         user_id = result[0]
 
-        connection.commit()
+        self.connection.commit()
         cursor.close()
 
         return user_id
@@ -64,9 +64,12 @@ class db():
 
         result = cursor.fetchone()
         cursor.close()
+        print(password)
+        print(result)
+        print(sha256_crypt.verify(password, result[2].strip()))
         if result == None:
             return (None, "Username not found")
-        elif not sha256_crypt.verify(password, result[2]):
+        elif not sha256_crypt.verify(password, result[2].strip()):
             return (None, "Wrong Password")
         else:
             return (result[0], "Success")
@@ -79,7 +82,7 @@ class db():
 
         cursor.execute(sql, data)
 
-        connection.commit()
+        self.connection.commit()
 
         cursor.close()
 
@@ -93,7 +96,7 @@ class db():
 
         cursor.execute(sql, data)
 
-        connection.commit()
+        self.connection.commit()
 
         cursor.close()
 
@@ -109,7 +112,7 @@ class db():
 
         cursor.execute(sql, data)
 
-        connection.commit()
+        self.connection.commit()
 
         cursor.close()
 

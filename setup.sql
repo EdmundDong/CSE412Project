@@ -29,7 +29,7 @@ PRIMARY KEY(genreId)
 CREATE TABLE Client(
 userId SERIAL,
 username CHAR(40) UNIQUE,
-hashedPass CHAR(60),
+hashedPass CHAR(256),
 lastUpdate TIMESTAMP,
 PRIMARY KEY(userId)
 );
