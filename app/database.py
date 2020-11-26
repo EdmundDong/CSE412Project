@@ -10,7 +10,7 @@ PORT = os.getenv("PORT")
 class db():
     def __init__(self):
         self.connection = None
-
+        print("HOST: "+(HOST,"None")[HOST is None]+", PORT: "+(PORT,"None")[PORT is None]+", DATABASE: "+(DATABASE,"None")[DATABASE is None])
         try:
             self.connection = psycopg2.connect(host = HOST, port = PORT, database = DATABASE)
             print("Database connection sucessful")
