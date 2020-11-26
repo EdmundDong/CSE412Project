@@ -34,6 +34,7 @@ def search():
 
     elif search_type == "word" and query is not None:
         games = db_instance.select_games_by_query_string(query)
+        print(games)
 
     elif search_type == "likes_desc":
         games = db_instance.select_games_sort_by_likes()
@@ -55,6 +56,7 @@ def search():
             output_games.append(games[index])
             index += 1
     
+    print(output_games)
     return render_template("main.html",
                             page = "search", 
                             display_data = display_data, 
