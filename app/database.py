@@ -10,11 +10,12 @@ PORT = os.getenv("PORT")
 class db():
     def __init__(self):
         self.connection = None
+        print("HOST: "+(HOST,"None")[HOST is None]+", PORT: "+(PORT,"None")[PORT is None]+", DATABASE: "+(DATABASE,"None")[DATABASE is None])
         try:
             self.connection = psycopg2.connect(host = HOST, port = PORT, database = DATABASE)
             print("Database connection sucessful")
         except:
-            print("Error connection with database, trying again")
+            print("Error connection with database credentials, trying again without them")
             try:
                 self.connection = psycopg2.connect(database = DATABASE)
                 print("Database connection sucessful")
@@ -368,14 +369,12 @@ class db():
                     ON Game.gameId = T.gameId
                     WHERE Game.gameid = HasGenre.gameid
                     AND HasGenre.genreid = Genre.genreid
-                    AND Game.gameid = HasGenre.gameid
-                    AND HasGenre.genreid = Genre.genreid
                     AND Game.gameid = HasPlatform.gameid
-                    AND HasPlatform.genreid = Platform.genreid
+                    AND HasPlatform.platformid = Platform.platformid
                     AND Game.gameid = HasDeveloper.gameid
-                    AND HasDeveloper.genreid = Developer.genreid
+                    AND HasDeveloper.devid = Developer.devid
                     AND Game.gameid = HasPublisher.gameid
-                    AND HasPublisher.genreid = Publisher.genreid
+                    AND HasPublisher.pubid = Publisher.pubid
                     AND Game.gameid = %s;
                     """
         data = [gameid]
