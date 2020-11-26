@@ -54,15 +54,15 @@ if ("gamedb_auth" in localStorage){
 
     fetch_user_status(game_id, user_id).then(function(resp){
         
-        let like = resp[like]
+        let like = resp['like']
         if (!like){
-            document.getElementById("like_button").classList.remove("hide")
+            document.getElementById("like_button").classList.remove("hideElement")
         }else{
-            document.getElementById("unlike_button").classList.remove("hide")
+            document.getElementById("unlike_button").classList.remove("hideElement")
         }
 
 
-        document.getElementById("like_status_div").classList.remove("hide")
+        document.getElementById("like_status_div").classList.remove("hideElement")
 
         
     })

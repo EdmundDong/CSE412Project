@@ -105,8 +105,12 @@ def register():
     
     found = db_instance.find_user(body["username"])
 
+    print(body)
+
     if not found:
         user_id = db_instance.create_user(body["username"], body["password"])
+        
+        print(user_id)
         return jsonify({"user_id": user_id, "username": body["username"]})
     return jsonify({"error": "something went wrong"})
 
@@ -139,6 +143,7 @@ def profile_info(user_id):
 @flaskapp.route('/game/<int:game_id>/')
 def game(game_id):
     games = db_instance.select_gamepage_by_gameid(game_id)
+    print(games)
     return render_template("main.html", page = "game", games = games)
 
 @flaskapp.route('/api/game/<int:game_id>/<int:user_id>', methods=["GET"])
