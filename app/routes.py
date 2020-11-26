@@ -106,14 +106,11 @@ def login():
 
 @flaskapp.route('/profile/', methods=["GET"])
 def profile():
-    return render_template("main.html", 
-                            page = "profile")
+    return render_template("main.html", page = "profile", profile = profile)
 
 @flaskapp.route("/api/profile/<int:user_id>", methods=["GET"])
 def profile_info(user_id):
-
     games = db_instance.select_games_liked_by_user(user_id)
-
     return jsonify({"games": games})
 
 @flaskapp.route('/game/<int:game_id>/')

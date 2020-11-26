@@ -15,7 +15,7 @@
         <title>Login</title>
     {%elif page == 'register': %}
         <title>Register</title>
-    {%elif page == 'profile.html' %}
+    {%elif page == 'profile' %}
         <title>Profile</title>
     {%endif%}
     <link rel = "stylesheet" href = "/static/css/main.css"/>
@@ -60,7 +60,7 @@
         {% include 'login.html' %}
     {%elif page == 'register': %}
         {% include 'register.html' %} 
-    {%elif page == 'profile.html' %}
+    {%elif page == 'profile' %}
         {% include 'profile.html' %}
     {%endif%}
 
