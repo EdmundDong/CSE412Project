@@ -41,15 +41,19 @@ def search():
 
     elif search_type == "likes_desc":
         games = db_instance.select_games_sort_by_likes()
-
+        print(games)
     elif search_type == "name_asc":
         games = db_instance.select_games_sort_by_alph()
+        print(games)
     elif search_type == "release_desc":
         games = db_instance.select_games_sort_release()
+        print(games)
     elif search_type == "user_rating_desc":
         games = db_instance.select_games_sort_user_rating()
+        print(games)
     elif search_type == "critic_rating_desc":
         games = db_instance.select_games_sort_critic_rating()
+        print(games)
     else:
         display_data = False
     

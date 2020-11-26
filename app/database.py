@@ -163,7 +163,7 @@ class db():
 
     def select_games_sort_release(self):
         cursor = self.connection.cursor()
-        sql = """SELECT Game.*, T.likes_amount
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
                  FROM Genre, HasGenre, Game
                  LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
                             FROM Likes
@@ -183,7 +183,7 @@ class db():
 
     def select_games_sort_user_rating(self):
         cursor = self.connection.cursor()
-        sql = """SELECT Game.*, T.likes_amount
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
                  FROM Genre, HasGenre, Game
                  LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
                             FROM Likes
@@ -203,7 +203,7 @@ class db():
 
     def select_games_sort_critic_rating(self):
         cursor = self.connection.cursor()
-        sql = """SELECT Game.*, T.likes_amount
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
                  FROM Genre, HasGenre, Game
                  LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
                             FROM Likes
@@ -223,7 +223,7 @@ class db():
 
     def select_games_sort_by_likes(self):
         cursor = self.connection.cursor()
-        sql = """SELECT Game.*, T.likes_amount
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
                  FROM Genre, HasGenre, Game
                  LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
                             FROM Likes
@@ -232,6 +232,26 @@ class db():
                  WHERE Game.gameid = HasGenre.gameid
                  AND HasGenre.genreid = Genre.genreid
                  ORDER BY T.likes_amount DESC NULLS LAST;"""
+
+        cursor.execute(sql)
+
+        results = cursor.fetchall()
+
+        cursor.close()
+
+        return results
+
+    def select_games_sort_by_alph(self):
+        cursor = self.connection.cursor()
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
+                FROM Genre, HasGenre, Game 
+                        LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                        FROM Likes
+                        GROUP BY gameId) AS T
+                ON Game.gameId = T.gameId
+                WHERE Game.gameid = HasGenre.gameid
+                AND HasGenre.genreid = Genre.genreid
+                ORDER BY Game.name ASC NULLS LAST;"""
 
         cursor.execute(sql)
 
@@ -252,27 +272,6 @@ class db():
                 WHERE Game.gameid = HasGenre.gameid
                 AND HasGenre.genreid = Genre.genreid
                 ORDER BY T.likes_amount DESC NULLS LAST
-                LIMIT 10;"""
-
-        cursor.execute(sql)
-
-        results = cursor.fetchall()
-
-        cursor.close()
-
-        return results
-
-    def select_games_sort_by_alph(self):
-        cursor = self.connection.cursor()
-        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
-                FROM Genre, HasGenre, Game 
-                        LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
-                        FROM Likes
-                        GROUP BY gameId) AS T
-                ON Game.gameId = T.gameId
-                WHERE Game.gameid = HasGenre.gameid
-                AND HasGenre.genreid = Genre.genreid
-                ORDER BY Game.name ASC
                 LIMIT 10;"""
 
         cursor.execute(sql)
