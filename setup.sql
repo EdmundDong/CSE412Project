@@ -1,26 +1,26 @@
 CREATE TABLE Platform(
-platformId INT,
+platformId SERIAL,
 name TEXT,
 lastUpdate TIMESTAMP,
 PRIMARY KEY(platformId)
 );
 
 CREATE TABLE Developer(
-devId INT,
+devId SERIAL,
 name TEXT,
 lastUpdate TIMESTAMP,
 PRIMARY KEY(devId)
 );
 
 CREATE TABLE Publisher(
-pubId INT,
+pubId SERIAL,
 name TEXT,
 lastUpdate TIMESTAMP,
 PRIMARY KEY(pubId)
 );
 
 CREATE TABLE Genre(
-genreId INT,
+genreId SERIAL,
 name TEXT,
 lastUpdate TIMESTAMP,
 PRIMARY KEY(genreId)
@@ -35,7 +35,7 @@ PRIMARY KEY(userId)
 );
 
 CREATE TABLE Game(
-gameId INT,
+gameId SERIAL,
 name TEXT,
 releaseDate DATE,
 userRating DOUBLE PRECISION,
