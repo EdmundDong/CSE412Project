@@ -354,11 +354,35 @@ class db():
 
         return results
 
+    def select_gamepage_by_gameid(self, gameid):
+        cursor = self.connection.cursor()
+        sql = """SELECT Game.*, T.likes_amount, Platform.name as Platform, Developer.name as Developer, Publisher.name as Publisher, Genre.name as Genre
+                    FROM Platform, HasPlatform, Developer, HasDeveloper, Publisher, HasPublisher, Genre, HasGenre, Game 
+                        LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                        FROM Likes
+                        GROUP BY gameId) AS T
+                    ON Game.gameId = T.gameId
+                    WHERE Game.gameid = HasGenre.gameid
+                    AND HasGenre.genreid = Genre.genreid
+                    AND Game.gameid = HasGenre.gameid
+                    AND HasGenre.genreid = Genre.genreid
+                    AND Game.gameid = HasPlatform.gameid
+                    AND HasPlatform.genreid = Platform.genreid
+                    AND Game.gameid = HasDeveloper.gameid
+                    AND HasDeveloper.genreid = Developer.genreid
+                    AND Game.gameid = HasPublisher.gameid
+                    AND HasPublisher.genreid = Publisher.genreid
+                    AND Game.gameid = %s;
+                    """
+        data = [gameid]
+        cursor.execute(sql,data)
+
+        results = cursor.fetchall()
+
+        cursor.close()
+
+        return results
+    
     def __del__(self):
         if self.connection is not None:
             self.connection.close()
-
-
-
-
-        
