@@ -3,16 +3,20 @@ from passlib.hash import sha256_crypt
 from datetime import datetime
 import os
 
+DATABASE = os.getenv("DATABASE")
+HOST =  os.getenv("HOST")
+PORT = os.getenv("PORT")
+
 class db():
     def __init__(self):
         self.connection = None
         try:
-            self.connection = psycopg2.connect(host = "localhost", port = "8088", database = "GameDB")
+            self.connection = psycopg2.connect(host = HOST, port = PORT, database = DATABASE)
             print("Database connection sucessful")
         except:
             print("Error connection with database, trying again")
             try:
-                self.connection = psycopg2.connect(database = "gamedb")
+                self.connection = psycopg2.connect(database = DATABASE)
                 print("Database connection sucessful")
             except:
                 print("Error connection with database")
