@@ -38,6 +38,15 @@ document.getElementById("like_button").addEventListener("click", function(){
     })    
 })
 
+document.getElementById("unlike_button").addEventListener("click", function(){
+    let user_id = JSON.parse(localStorage.getItem("gamedb_auth"))['user_id']
+    let game_id = document.getElementById("game_id").innerText;
+    flip_likes(game_id, user_id).then(function(resp){
+        window.location.reload()
+    })    
+})
+
+
 
 if ("gamedb_auth" in localStorage){
     let user_id = JSON.parse(localStorage.getItem("gamedb_auth"))['user_id']
@@ -49,7 +58,7 @@ if ("gamedb_auth" in localStorage){
         if (!like){
             document.getElementById("like_button").classList.remove("hide")
         }else{
-            document.getElementById("dislike_button").classList.remove("hide")
+            document.getElementById("unlike_button").classList.remove("hide")
         }
 
 
