@@ -369,14 +369,12 @@ class db():
                     ON Game.gameId = T.gameId
                     WHERE Game.gameid = HasGenre.gameid
                     AND HasGenre.genreid = Genre.genreid
-                    AND Game.gameid = HasGenre.gameid
-                    AND HasGenre.genreid = Genre.genreid
                     AND Game.gameid = HasPlatform.gameid
-                    AND HasPlatform.genreid = Platform.genreid
+                    AND HasPlatform.platformid = Platform.platformid
                     AND Game.gameid = HasDeveloper.gameid
-                    AND HasDeveloper.genreid = Developer.genreid
+                    AND HasDeveloper.devid = Developer.devid
                     AND Game.gameid = HasPublisher.gameid
-                    AND HasPublisher.genreid = Publisher.genreid
+                    AND HasPublisher.pubid = Publisher.pubid
                     AND Game.gameid = %s;
                     """
         data = [gameid]
