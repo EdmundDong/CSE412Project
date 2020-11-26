@@ -148,11 +148,39 @@ class db():
         cursor.close()
 
         return results
+    
+    def get_publisher_name(self, platform_id):
+        cursor = self.connection.cursor()
+        sql = """SELECT name
+                FROM Publisher
+                WHERE pubid = %s;"""
+        data = [platform_id]
+        cursor.execute(sql,data)
 
+        results = cursor.fetchall()
+
+        cursor.close()
+
+        return results
+    
+    def get_developer_name(self, developer_id):
+        cursor = self.connection.cursor()
+        sql = """SELECT name
+                FROM Developer
+                WHERE devid = %s;"""
+        data = [developer_id]
+        cursor.execute(sql,data)
+
+        results = cursor.fetchall()
+
+        cursor.close()
+
+        return results
+    
     def select_games_published_by_publisher(self, publisherid):
         cursor = self.connection.cursor()
 
-        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre, Publisher.name as Publisher
                     FROM HasPublisher, Publisher, Genre, HasGenre, Game 
                         LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
                         FROM Likes
@@ -174,15 +202,21 @@ class db():
 
         return results
     
-    def select_games_published_by_developer(self, developerid):
+    def select_games_developed_by_developer(self, developerid):
         cursor = self.connection.cursor()
 
-        sql = """SELECT Game.*, Developer.name
-                 FROM Game, HasPublisher, Developer
-                 WHERE Game.gameId = HasPublisher.gameId
-                    AND HasPublisher.pubId = Developer.pubId
-                    AND Developer.pubid = %s
-                 ORDER BY releaseDate DESC;"""
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre, Developer.name as Developer
+                    FROM HasPublisher, Developer, Genre, HasGenre, Game 
+                        LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                        FROM Likes
+                        GROUP BY gameId) AS T
+                    ON Game.gameId = T.gameId
+                    WHERE Game.gameid = HasGenre.gameid
+                    AND HasGenre.genreid = Genre.genreid
+                    AND Game.gameId = HasPublisher.gameId
+                    AND HasPublisher.pubId = Developer.devId
+                    AND Developer.devid = %s
+                    ORDER BY releaseDate DESC;"""
         data = [developerid]
 
         cursor.execute(sql,data)
@@ -343,7 +377,7 @@ class db():
         cursor.close()
 
         return results
-
+    
     def select_games_by_platform(self, platform_id):
         cursor = self.connection.cursor()
         sql = """SELECT Game.*
@@ -352,23 +386,6 @@ class db():
                     AND Platform.platformId = HasPlatform.platformId 
                     AND Platform.platformId = %s;"""
         data = [platform_id]
-        cursor.execute(sql,data)
-
-        results = cursor.fetchall()
-
-        cursor.close()
-
-        return results
-
-    def select_games_by_developer(self, developer_id):
-        cursor = self.connection.cursor()
-        sql = """SELECT Game.*
-                    FROM Game, Developer, HasDeveloper
-                    WHERE Game.gameId = HasDeveloper.gameId 
-                            AND Developer.devId = HasDeveloper.devId 
-                            AND Developer.devId = %s;
-                    """
-        data = [developer_id]
         cursor.execute(sql,data)
 
         results = cursor.fetchall()
@@ -416,7 +433,7 @@ class db():
 
     def select_gamepage_by_gameid(self, gameid):
         cursor = self.connection.cursor()
-        sql = """SELECT Game.*, T.likes_amount, Platform.name as Platform, Developer.name as Developer, Publisher.name as Publisher, Genre.name as Genre
+        sql = """SELECT Game.*, T.likes_amount, Platform.name as Platform, Developer.devid as DeveloperId, Developer.name as Developer, Publisher.pubid as PublisherId, Publisher.name as Publisher, Genre.name as Genre
                     FROM Platform, HasPlatform, Developer, HasDeveloper, Publisher, HasPublisher, Genre, HasGenre, Game 
                         LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
                         FROM Likes

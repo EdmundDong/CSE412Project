@@ -149,13 +149,15 @@ def game(game_id):
 @flaskapp.route('/publisher/<int:company_id>/')
 def publisher(company_id):
     games = db_instance.select_games_published_by_publisher(company_id)
+    company = db_instance.get_publisher_name(company_id)
     print(games)
-    return render_template("main.html", page = "publisher", games = games)
+    return render_template("main.html", page = "publisher", games = games, company = company[0][0])
 
 @flaskapp.route('/developer/<int:company_id>/')
 def developer(company_id):
-    games = db_instance.select_games_published_by_developer(company_id)
-    return render_template("main.html", page = "developer", games = games)
+    games = db_instance.select_games_developed_by_developer(company_id)
+    company = db_instance.get_developer_name(company_id)
+    return render_template("main.html", page = "developer", games = games, company = company[0][0])
 
 @flaskapp.route('/api/game/<int:game_id>/<int:user_id>', methods=["GET"])
 def user_likes_game(game_id, user_id):
