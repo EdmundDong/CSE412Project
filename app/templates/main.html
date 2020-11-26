@@ -17,6 +17,10 @@
         <title>Register</title>
     {%elif page == 'profile' %}
         <title>Profile</title>
+    {%elif page == 'publisher' %}
+        <title>publisher Profile</title>
+    {%elif page == 'developer' %}
+        <title>developer Profile</title>
     {%endif%}
     <link rel = "stylesheet" href = "/static/css/main.css"/>
 </head>
@@ -62,6 +66,10 @@
         {% include 'register.html' %} 
     {%elif page == 'profile' %}
         {% include 'profile.html' %}
+    {%elif page == 'publisher' %}
+        {% include 'companyprofile.html' %}
+    {%elif page == 'developer' %}
+        {% include 'companyprofile.html' %}
     {%endif%}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

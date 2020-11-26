@@ -149,16 +149,41 @@ class db():
 
         return results
 
-    def select_games_published_by_publisher(self, publisher_name):
+    def select_games_published_by_publisher(self, publisherid):
         cursor = self.connection.cursor()
 
-        sql = """SELECT Game.*
-                 FROM Game, HasPublisher, Publisher
-                 WHERE Game.gameId = HasPublisher.gameId
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
+                    FROM HasPublisher, Publisher, Genre, HasGenre, Game 
+                        LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                        FROM Likes
+                        GROUP BY gameId) AS T
+                    ON Game.gameId = T.gameId
+                    WHERE Game.gameid = HasGenre.gameid
+                    AND HasGenre.genreid = Genre.genreid
+                    AND Game.gameId = HasPublisher.gameId
                     AND HasPublisher.pubId = Publisher.pubId
-                    AND Publisher.name = %s
+                    AND Publisher.pubid = %s
+                    ORDER BY releaseDate DESC;"""
+        data = [publisherid]
+
+        cursor.execute(sql,data)
+
+        results = cursor.fetchall()
+
+        cursor.close()
+
+        return results
+    
+    def select_games_published_by_developer(self, developerid):
+        cursor = self.connection.cursor()
+
+        sql = """SELECT Game.*, Developer.name
+                 FROM Game, HasPublisher, Developer
+                 WHERE Game.gameId = HasPublisher.gameId
+                    AND HasPublisher.pubId = Developer.pubId
+                    AND Developer.pubid = %s
                  ORDER BY releaseDate DESC;"""
-        data = [user_id]
+        data = [developerid]
 
         cursor.execute(sql,data)
 
