@@ -35,41 +35,45 @@
     </div>
     </nav>
     
+	{% for game in games: %}
     <div class="container">
         <div class="row">
           <div class = "col-md-12" id = "titleColumn">
             <br>
-            <h1 class = "title" style = "text-align: center;">Hello Kitty Online</h1>
+            <h1 class = "title" style = "text-align: center;">{{game[6]}}</h1>
           </div>
         </div>
       </br>
 		<div class ="row">
             <div class="col-md-4">
-				<img src="https://upload.wikimedia.org/wikipedia/en/6/69/ImagineCover.jpg" style="width:100%;" class="rounded mx-auto d-block" alt="Game image">
+				<img src="{{game[6]}}" style="width:100%;" class="rounded mx-auto d-block" alt="Game image">
 			</div>
 			<div class="col-md-8">
 				<div class="row" style="width: 100%; height: 100%; border: 1px solid black; border-radius: 10px; margin: auto; padding: 15px;">
 					<div class = "col-md-12">
 						<div class = "row">
-							<h3>Release Date: <span> March 4, 2012</span></h3>
+							<h3>Release Date: {{game[2]}}</h3>
 						</div>
 						<div class = "row">
-							<h3>User Rating: <span>5.3/10</span></h3>
+							<h3>User Rating: {{game[3]}}</h3>
 						</div>
 						<div class = "row">
-							<h3>Critic Rating: <span>7.8/10</span></h3>
+							<h3>Critic Rating: {{game[4]}}</h3>
 						</div>
 						<div class = "row">
-							<h3>Platform: <span>PC</span></h3>
+							<h3>Platform: {{game[9]}}</h3>
 						</div>
 						<div class = "row">
-							<h3>Developer: <span>Sanrio Digital</span></h3>
+							<h3>Developer: {{game[10]}}</h3>
 						</div>
 						<div class = "row">
-							<h3>Publisher: <span>Sanrio Digital</span></h3>
+							<h3>Publisher: {{game[11]}}</h3>
 						</div>
 						<div class = "row">
-							<h3>Genre: <span>MMORPG</span></h3>
+							<h3>Genre: {{game[12]}}</h3>
+						</div>
+						<div class = "row">
+							<h3>Likes: {{(game[8],0)[game[8] is none]}}</h3>
 						</div>
 					</div>
 				</div>
@@ -87,9 +91,10 @@
         </div>
 		</br>
 		<div class="row" style="width: 100%; height: 100%; border: 1px solid black; border-radius: 10px; margin: auto; padding: 15px;">
-			<h3>Description:</h3><p style="font-size:18px; margin-bottom:0;"><span> Hello Kitty Online was a free-to-play massively multiplayer online role playing game active from 2008 to 2017, developed by Sanrio Digital and Typhoon Games. The game is tied to the SanrioTown website, where players are required to register a free account.</span></p>
+			<h3>Description:</h3><p style="font-size:18px; margin-bottom:0;"><span>{{game[5]}}</span></p>
 		</div>
     </div>
+	{% endfor %}
     </br>
 
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

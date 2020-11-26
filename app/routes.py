@@ -119,7 +119,7 @@ def profile_info(user_id):
 
 @flaskapp.route('/game/<int:game_id>/')
 def game(game_id):
-    games = db_instance.select_game_by_gameid(game_id)
+    games = db_instance.select_gamepage_by_gameid(game_id)
     return render_template("main.html", page = "game", games = games)
 
 @flaskapp.route('/api/game/<int:game_id>/<int:user_id>', methods=["GET"])
