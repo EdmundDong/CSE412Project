@@ -6,9 +6,9 @@ if __name__ == "__main__":
     logging.basicConfig(encoding='utf-8', level=logging.DEBUG)
     logger = logging.getLogger(__name__)
 
-    db_name = "gamedb"
-    db_user = ""
-    db_password = ""
+    db_name = "gamedb"  # TODO load from environment
+    db_user = ""  # Add as keyword argument to pg.connect() if applicable
+    db_password = ""  # Add as keyword argument to pg.connect() if applicable
 
     game_path = "table_data/Game.csv"
     dev_path = "table_data/Developer.csv"

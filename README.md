@@ -23,6 +23,17 @@ When you are done with working on the project and want to escape out of the virt
 deactivate
 ```
 
-Setup the data base by looking at the setup.sql file for the tables. Modify the database.py connection parameters for the db as you see fit.
+Setup the data base by looking at the setup.sql file for the tables.
+
+~~Modify the database.py connection parameters for the db as you see fit.~~
+
+After your tables are setup, create a ```.env``` file under ```/app``` with the following code:
+```
+DATABASE=<local database name>
+HOST=<optional depending on config, local database host>
+PORT=<optional depending on config, local database port>
+```
+
+Use ```flask run``` while in the main folder to run the server. The server should be visable at http://localhost:5000/
 
 PostgreSQL database with a Flask server.

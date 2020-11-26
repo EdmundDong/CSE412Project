@@ -10,14 +10,18 @@ PORT = os.getenv("PORT")
 class db():
     def __init__(self):
         self.connection = None
+<<<<<<< HEAD
         print(DATABASE)
         print(HOST)
         print(PORT)
+=======
+        print("HOST: "+(HOST,"None")[HOST is None]+", PORT: "+(PORT,"None")[PORT is None]+", DATABASE: "+(DATABASE,"None")[DATABASE is None])
+>>>>>>> 1b34e2782c1f0d42a6f0b46a75cb14af5fa20695
         try:
             self.connection = psycopg2.connect(host = HOST, port = PORT, database = DATABASE)
             print("Database connection sucessful")
         except:
-            print("Error connection with database, trying again")
+            print("Error connection with database credentials, trying again without them")
             try:
                 self.connection = psycopg2.connect(database = DATABASE)
                 print("Database connection sucessful")
@@ -385,11 +389,33 @@ class db():
 
         return results
 
+    def select_gamepage_by_gameid(self, gameid):
+        cursor = self.connection.cursor()
+        sql = """SELECT Game.*, T.likes_amount, Platform.name as Platform, Developer.name as Developer, Publisher.name as Publisher, Genre.name as Genre
+                    FROM Platform, HasPlatform, Developer, HasDeveloper, Publisher, HasPublisher, Genre, HasGenre, Game 
+                        LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                        FROM Likes
+                        GROUP BY gameId) AS T
+                    ON Game.gameId = T.gameId
+                    WHERE Game.gameid = HasGenre.gameid
+                    AND HasGenre.genreid = Genre.genreid
+                    AND Game.gameid = HasPlatform.gameid
+                    AND HasPlatform.platformid = Platform.platformid
+                    AND Game.gameid = HasDeveloper.gameid
+                    AND HasDeveloper.devid = Developer.devid
+                    AND Game.gameid = HasPublisher.gameid
+                    AND HasPublisher.pubid = Publisher.pubid
+                    AND Game.gameid = %s;
+                    """
+        data = [gameid]
+        cursor.execute(sql,data)
+
+        results = cursor.fetchall()
+
+        cursor.close()
+
+        return results
+    
     def __del__(self):
         if self.connection is not None:
             self.connection.close()
-
-
-
-
-        
