@@ -6,8 +6,6 @@ import os
 class db():
     def __init__(self):
         self.connection = None
-
-        exit(0)
         try:
             self.connection = psycopg2.connect(host = "localhost", port = "8088", database = "GameDB")
             print("Database connection sucessful")
