@@ -1,10 +1,13 @@
 import psycopg2
 from passlib.hash import sha256_crypt
 from datetime import datetime
+import os
 
 class db():
     def __init__(self):
         self.connection = None
+
+        exit(0)
         try:
             self.connection = psycopg2.connect(host = "localhost", port = "8088", database = "GameDB")
             print("Database connection sucessful")
@@ -194,11 +197,13 @@ class db():
     def select_games_sort_by_likes(self):
         cursor = self.connection.cursor()
         sql = """SELECT Game.*, T.likes_amount
-                 FROM Game
+                 FROM Genre, HasGenre, Game
                  LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
                             FROM Likes
                             GROUP BY gameId) AS T
                  ON Game.gameId = T.gameId
+                 WHERE Game.gameid = HasGenre.gameid
+                 AND HasGenre.genreid = Genre.genreid
                  ORDER BY T.likes_amount DESC NULLS LAST;"""
 
         cursor.execute(sql)
@@ -232,7 +237,16 @@ class db():
 
     def select_games_sort_by_alph(self):
         cursor = self.connection.cursor()
-        sql = 'SELECT * FROM Game ORDER BY name ASC;'
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
+                FROM Genre, HasGenre, Game 
+                        LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                        FROM Likes
+                        GROUP BY gameId) AS T
+                ON Game.gameId = T.gameId
+                WHERE Game.gameid = HasGenre.gameid
+                AND HasGenre.genreid = Genre.genreid
+                ORDER BY T.name ASC
+                LIMIT 10;"""
 
         cursor.execute(sql)
 

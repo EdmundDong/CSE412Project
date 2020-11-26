@@ -1,5 +1,9 @@
 from app import flaskapp
 from flask import request, render_template, jsonify
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 from app import database
 db_instance = database.db()
 
@@ -34,7 +38,6 @@ def search():
 
     elif search_type == "word" and query is not None:
         games = db_instance.select_games_by_query_string(query)
-        print(games)
 
     elif search_type == "likes_desc":
         games = db_instance.select_games_sort_by_likes()
@@ -46,22 +49,28 @@ def search():
     
     output_games = []
     
+    max_page = False
     if games is not None:
         index = (page - 1) * 10
         if index >= len(games):
             index = 0
             page = 1
+            
         limit = min(index+10, len(games))
         while index < limit:
             output_games.append(games[index])
             index += 1
+
+        if index+10 >= len(games):
+            max_page = True
     
     print(output_games)
     return render_template("main.html",
                             page = "search", 
                             display_data = display_data, 
                             games = output_games, 
-                            page_num = page)
+                            page_num = page,
+                            max_page = max_page)
 
 @flaskapp.route("/register/", methods=["GET"])
 def register_page():

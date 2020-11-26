@@ -51,11 +51,13 @@
 	<div class = "row" style= "margin: auto; padding: 20px;">
 	  <nav aria-label="Page navigation example" style="margin: auto;">
 		<ul class="pagination">
-		  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-		  <li class="page-item"><a class="page-link" href="#">1</a></li>
-		  <li class="page-item"><a class="page-link" href="#">2</a></li>
-		  <li class="page-item"><a class="page-link" href="#">3</a></li>
-		  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+		  {% if page_num != 1:%}
+		  	<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+		  {% endif %}
+
+		  {% if not max_page: %}
+		    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+		  {% endif %}
 		</ul>
 	  </nav>
 	</div>
