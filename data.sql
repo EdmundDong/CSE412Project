@@ -2,13 +2,13 @@ INSERT INTO Game(name,releaseDate,userRating,criticRating,description,imageLink,
 INSERT INTO Genre(name,lastUpdate) VALUES('Stealth', '2020-06-22 19:10:25');
 INSERT INTO HasGenre VALUES('1', '1', '2020-06-22 19:10:25');
 
-INSERT INTO Game(name,releaseDate,userRating,criticRating,description,imageLink,lastUpdate) VALUES('Fall Guys', '2021-01-20', 3.2, 4.5, 'description for Fall Guys', 'https://upload.wikimedia.org/wikipedia/en/6/69/ImagineCover.jpg', '2020-06-22 19:10:25');
+INSERT INTO Game(name,releaseDate,userRating,criticRating,description,imageLink,lastUpdate) VALUES('Fall Guys', '2021-01-10', 3.2, 4.5, 'description for Fall Guys', 'https://upload.wikimedia.org/wikipedia/en/6/69/ImagineCover.jpg', '2020-06-22 19:10:25');
 INSERT INTO HasGenre VALUES('2', '1', '2020-06-22 19:10:25');
 
-INSERT INTO Game(name,releaseDate,userRating,criticRating,description,imageLink,lastUpdate) VALUES('Final Fantasy XII', '2021-01-20', 3.2, 4.5, 'description for Final Fantasy XII', 'https://upload.wikimedia.org/wikipedia/en/6/69/ImagineCover.jpg', '2020-06-22 19:10:25');
+INSERT INTO Game(name,releaseDate,userRating,criticRating,description,imageLink,lastUpdate) VALUES('Final Fantasy XII', '2021-01-20', 3.1, 4.5, 'description for Final Fantasy XII', 'https://upload.wikimedia.org/wikipedia/en/6/69/ImagineCover.jpg', '2020-06-22 19:10:25');
 INSERT INTO HasGenre VALUES('3', '1', '2020-06-22 19:10:25');
 
-INSERT INTO Game(name,releaseDate,userRating,criticRating,description,imageLink,lastUpdate) VALUES('Final Fantasy XIII', '2021-01-20', 3.2, 4.5, 'description for Final Fantasy XIII', 'https://upload.wikimedia.org/wikipedia/en/6/69/ImagineCover.jpg', '2020-06-22 19:10:25');
+INSERT INTO Game(name,releaseDate,userRating,criticRating,description,imageLink,lastUpdate) VALUES('Final Fantasy XIII', '2021-01-20', 3.2, 4.1, 'description for Final Fantasy XIII', 'https://upload.wikimedia.org/wikipedia/en/6/69/ImagineCover.jpg', '2020-06-22 19:10:25');
 INSERT INTO HasGenre VALUES('4', '1', '2020-06-22 19:10:25');
 
 INSERT INTO Game(name,releaseDate,userRating,criticRating,description,imageLink,lastUpdate) VALUES('Game 3', '2021-01-20', 3.2, 4.5, 'description for Game 3', 'https://upload.wikimedia.org/wikipedia/en/6/69/ImagineCover.jpg', '2020-06-22 19:10:25');

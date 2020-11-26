@@ -1,6 +1,7 @@
 from app import flaskapp
 from flask import request, render_template, jsonify
 import os
+import math
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -44,14 +45,24 @@ def search():
 
     elif search_type == "name_asc":
         games = db_instance.select_games_sort_by_alph()
+    elif search_type == "release_desc":
+        games = db_instance.select_games_sort_release()
+    elif search_type == "user_rating_desc":
+        games = db_instance.select_games_sort_user_rating()
+    elif search_type == "critic_rating_desc":
+        games = db_instance.select_games_sort_critic_rating()
     else:
         display_data = False
     
     output_games = []
-    
-    max_page = False
+    out_of = 0
+    max_page = True
     if games is not None:
         index = (page - 1) * 10
+
+        if index+10 < len(games):
+            max_page = False
+            
         if index >= len(games):
             index = 0
             page = 1
@@ -61,16 +72,24 @@ def search():
             output_games.append(games[index])
             index += 1
 
-        if index+10 >= len(games):
-            max_page = True
+        
+        print(len(games))
+        out_of = math.ceil(len(games)/10)
     
-    print(output_games)
+    
+    print(out_of)
+    print(len(output_games))
+    print(max_page)
+    if len(output_games) == 0:
+        page = 0
+
     return render_template("main.html",
                             page = "search", 
                             display_data = display_data, 
                             games = output_games, 
                             page_num = page,
-                            max_page = max_page)
+                            max_page = max_page,
+                            out_of = out_of)
 
 @flaskapp.route("/register/", methods=["GET"])
 def register_page():

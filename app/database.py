@@ -10,6 +10,9 @@ PORT = os.getenv("PORT")
 class db():
     def __init__(self):
         self.connection = None
+        print(DATABASE)
+        print(HOST)
+        print(PORT)
         try:
             self.connection = psycopg2.connect(host = HOST, port = PORT, database = DATABASE)
             print("Database connection sucessful")
@@ -162,7 +165,15 @@ class db():
 
     def select_games_sort_release(self):
         cursor = self.connection.cursor()
-        sql = 'SELECT * FROM Game ORDER BY releaseDate DESC;'
+        sql = """SELECT Game.*, T.likes_amount
+                 FROM Genre, HasGenre, Game
+                 LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                            FROM Likes
+                            GROUP BY gameId) AS T
+                 ON Game.gameId = T.gameId
+                 WHERE Game.gameid = HasGenre.gameid
+                 AND HasGenre.genreid = Genre.genreid
+                 ORDER BY Game.releaseDate DESC NULLS LAST;"""
 
         cursor.execute(sql)
 
@@ -174,7 +185,15 @@ class db():
 
     def select_games_sort_user_rating(self):
         cursor = self.connection.cursor()
-        sql = 'SELECT * FROM Game ORDER BY userRating DESC;'
+        sql = """SELECT Game.*, T.likes_amount
+                 FROM Genre, HasGenre, Game
+                 LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                            FROM Likes
+                            GROUP BY gameId) AS T
+                 ON Game.gameId = T.gameId
+                 WHERE Game.gameid = HasGenre.gameid
+                 AND HasGenre.genreid = Genre.genreid
+                 ORDER BY Game.userRating DESC NULLS LAST;"""
 
         cursor.execute(sql)
 
@@ -186,7 +205,15 @@ class db():
 
     def select_games_sort_critic_rating(self):
         cursor = self.connection.cursor()
-        sql = 'SELECT * FROM Game ORDER BY criticRating DESC;'
+        sql = """SELECT Game.*, T.likes_amount
+                 FROM Genre, HasGenre, Game
+                 LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                            FROM Likes
+                            GROUP BY gameId) AS T
+                 ON Game.gameId = T.gameId
+                 WHERE Game.gameid = HasGenre.gameid
+                 AND HasGenre.genreid = Genre.genreid
+                 ORDER BY Game.criticRating DESC NULLS LAST;"""
 
         cursor.execute(sql)
 
@@ -247,7 +274,7 @@ class db():
                 ON Game.gameId = T.gameId
                 WHERE Game.gameid = HasGenre.gameid
                 AND HasGenre.genreid = Genre.genreid
-                ORDER BY T.name ASC
+                ORDER BY Game.name ASC
                 LIMIT 10;"""
 
         cursor.execute(sql)
