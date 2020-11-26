@@ -16,17 +16,14 @@ async function get_profile_likes(user_id){
 function populate_profile_likes(games){
     let template = `
         <% for (let game of games){%>
-                <div class = "col-md-6">
+                <div class = "col-md-6" style = "margin-bottom: 20px;">
                     <div class = "row" style="width: 100%; border: 1px solid black; border-radius: 10px; margin: auto; padding: 15px">
                         <div class ="col-md-6" id = "game1">
-                            <h3><%= game[1] %></h3>
+                            <h3><a href = "<%= "../game/" + game[0] %>"> <%= game[1] %> </a></h3>
                         </div>
                         <div class ="col-md-6">
                             <div class = "row">
                                 <h4> Likes: <span><%= game[8] %></span></h4>
-                            </div>
-                            <div class = "row">
-                                <h4> Last Updated: <span><%= game[7] %></span></h4>
                             </div>
                             <div class = "row">
                                 <h4> Genre: <span><%= game[9] %></span></h4>
@@ -40,7 +37,13 @@ function populate_profile_likes(games){
     `
     htmlout = ejs.render(template, {games: games})
 
-    document.getElementById("liked_games").innerHTML = htmlout
+    console.log(games.length)
+    if (games.length > 0){
+        document.getElementById("liked_games").innerHTML = htmlout
+    }else{
+        document.getElementById("liked_games").innerHTML = '<h3 style = "width: 100%; text-align: center;">You have not liked a game.</h3>'
+    }
+    
 
     document.getElementById("page").classList.remove("hideElement")
 }
