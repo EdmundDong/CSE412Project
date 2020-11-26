@@ -127,11 +127,18 @@ class db():
     def select_games_liked_by_user(self, user_id):
         cursor = self.connection.cursor()
 
-        sql = """SELECT Game.* 
-                FROM Client, Likes, Game 
-                WHERE Client.userId = Likes.userId 
-                    AND Likes.gameId = Game.gameId
-                    AND Client.userId = %s"""
+        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
+                FROM Client, Likes, Genre, HasGenre, Game 
+                        LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                        FROM Likes
+                        GROUP BY gameId) AS T
+                ON Game.gameId = T.gameId
+                WHERE Game.gameid = HasGenre.gameid
+                AND HasGenre.genreid = Genre.genreid
+                AND Client.userId = Likes.userId
+                AND Likes.gameId = Game.gameId
+                AND Client.userId = 1
+                ORDER BY Game.name DESC NULLS LAST;"""
         data = [user_id]
 
         cursor.execute(sql,data)

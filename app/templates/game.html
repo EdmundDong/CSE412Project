@@ -43,12 +43,12 @@
 		</div>
 	</div>
 </br>
-	<div class = "row">
-		<div class = "col-sm-12" id = sort style = "margin: auto; ">
-			<button type="date" class="btn btn-primary" style="width: 100%">Like</button>
+	<div class = "row hideElement" id = "like_status_div" >
+		<div class = "col-sm-12" id = "user_buttons" style = "margin: auto; ">
+			<button type="date" id = "like_button" class="btn btn-primary hideElement" style="width: 100%">Like</button>
 		</div>
 		<div class = "col-sm-12" id = sort style = "margin: auto">
-			<button type="date" class="btn btn-primary" style="width: 100%">Unlike</button>
+			<button type="date" id = "unlike_button" class="btn btn-secondary hideElement" style="width: 100%">Unlike</button>
 		</div>
 	</div>
 	</br>
@@ -61,6 +61,7 @@
 		</div>
 	</div>
 </div>
+<div id = "game_id" style ="display: none;">{{game[0]}}</div>
 {% endfor %}
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
