@@ -12,12 +12,12 @@ class db():
         self.connection = None
         print("HOST: "+(HOST,"None")[HOST is None]+", PORT: "+(PORT,"None")[PORT is None]+", DATABASE: "+(DATABASE,"None")[DATABASE is None])
         try:
-            self.connection = psycopg2.connect(host = HOST, port = PORT, database = DATABASE)
+            self.connection = psycopg2.connect(host=HOST, port=PORT, dbname=DATABASE)
             print("Database connection sucessful")
         except:
             print("Error connection with database credentials, trying again without them")
             try:
-                self.connection = psycopg2.connect(database = DATABASE)
+                self.connection = psycopg2.connect(dbname=DATABASE)
                 print("Database connection sucessful")
             except:
                 print("Error connection with database")
