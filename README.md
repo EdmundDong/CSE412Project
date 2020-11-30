@@ -1,6 +1,7 @@
 # Game DB
 #
-A searchable games database with a game recommendation system. Built with PostgreSQL and Flask.
+A searchable games database with a game recommendation system. 
+Built with PostgreSQL and Flask.
 
 
 ## Setup Instructions
