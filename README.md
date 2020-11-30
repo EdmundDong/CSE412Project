@@ -31,7 +31,7 @@ With postgres installed and with a running postgresql database, run the followin
 
 After your tables are setup, create a ```.env``` file under ```/app``` and ```/setup``` with the following code:
 ```
-DATABASE=<local database name>
+DATABASE=gamedb
 HOST=<optional depending on config, local database host>
 PORT=<optional depending on config, local database port>
 ```
