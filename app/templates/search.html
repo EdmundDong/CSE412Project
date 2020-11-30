@@ -5,13 +5,11 @@
 		<h1 class = "title" style = "text-align: center;">Game Search</h1>
 	  </div>
 	</div>
-	<form style="width:80%; margin: auto" id="searchform">
-		<div class="form-group">
-			<input type="text" class="form-control" id="game" aria-describedby="game" placeholder="Search game">
-		</div>  
-	</form> 
-	<div class = "row" style = "margin: auto; padding: 20px">
-		<h5> Sort by: </h5>
+	</br>
+	<div class = "row">
+		<div class = "col-sm-2" id = sort style = "margin: auto">
+			<h5> Popular Searches: </h5>
+		</div>
 		<div class = "col-sm-2" id = sort style = "margin: auto">
 			<button type="date" id = "sort_release"class="btn btn-primary" style="width:100%">Release Date</button>
 		</div>
@@ -28,6 +26,20 @@
 			<button type="date" id = "sort_name"class="btn btn-primary" style="width:100%">Name</button>
 		</div>
 	</div>
+	</br>
+	<div class="row">
+		<div class = "col-sm-2">
+			<h5> Search by Name: </h5>
+		</div>
+		<div class = "col-sm-10">
+			<form style="margin: auto" id="searchform">
+				<div class="form-group">
+					<input type="text" class="form-control" id="game" aria-describedby="game" placeholder="Search game">
+				</div>  
+			</form> 
+		</div>
+	</div>
+	</br>
 	{% for game in games: %}
 	<div class = "row" style="width: 80%; border: 1px solid black; border-radius: 10px; margin: auto; padding: 15px">
 		<div class ="col-md-6" id = "game1">

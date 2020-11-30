@@ -404,7 +404,7 @@ class db():
                     ON Game.gameId = T.gameId
                     WHERE Game.gameid = HasGenre.gameid
                     AND HasGenre.genreid = Genre.genreid
-                    AND Game.name LIKE %s
+                    AND LOWER(Game.name) LIKE LOWER(%s)
                     ORDER BY T.likes_amount DESC NULLS LAST;
                     """
         data = ["%"+query_string+"%"]
