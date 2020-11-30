@@ -1,14 +1,15 @@
 import csv
 import logging
+import os
 import psycopg2 as pg
 
 if __name__ == "__main__":
     logging.basicConfig(encoding='utf-8', level=logging.DEBUG)
     logger = logging.getLogger(__name__)
 
-    db_name = "gamedb"  # TODO load from environment
-    db_user = ""  # Add as keyword argument to pg.connect() if applicable
-    db_password = ""  # Add as keyword argument to pg.connect() if applicable
+    db_name = os.getenv("DATABASE")
+    db_host =  os.getenv("HOST")
+    db_port = os.getenv("PORT")
 
     game_path = "table_data/Game.csv"
     dev_path = "table_data/Developer.csv"
@@ -112,7 +113,18 @@ if __name__ == "__main__":
     logger.debug("Loaded Likes csv.")
 
     # connect to database
-    conn = pg.connect(dbname=db_name)
+    conn = None
+    try:
+        conn = pg.connect(host=db_host, port=db_port, dbname=db_name)
+        print("Database connection sucessful")
+    except:
+        print("Error connection with database credentials, trying again without them")
+        try:
+            conn = pg.connect(dbname=db_name)
+            print("Database connection sucessful")
+        except:
+            print("Error connection with database")
+            exit(0)
 
     # open a cursor to perform db operations
     cur = conn.cursor()
