@@ -1,5 +1,8 @@
 # CSE412Project
 #
+
+## Setup Instructions
+
 Install venv with: 
 ```
 pip install virtualenv
