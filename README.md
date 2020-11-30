@@ -1,4 +1,4 @@
-# Game DB: 
+# Game DB
 #
 A searchable games database with a game recommendation system.
 
