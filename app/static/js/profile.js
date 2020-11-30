@@ -107,9 +107,9 @@ if ("gamedb_auth" in localStorage){
         document.getElementById("username").innerText = tokenjs["username"]
         console.log(resp)
         populate_profile_likes(resp["games"])
-        get_recommended(tokenjs["user_id"].then(function(resp){
+        get_recommended(tokenjs["user_id"]).then(function(resp){
             populate_recommended(resp["games"])
-        }))
+        })
     })
     
 

@@ -30,10 +30,10 @@
 						<h3>Release Date: {{game[2]}}</h3>
 					</div>
 					<div class = "row">
-						<h3>User Rating: {{game[3]}}</h3>
+						<h3>User Rating: {{game[3]}} / 10</h3>
 					</div>
 					<div class = "row">
-						<h3>Critic Rating: {{game[4]}}</h3>
+						<h3>Critic Rating: {{game[4]|int}} / 100</h3>
 					</div>
 					<div class = "row">
 						<h3>Likes: {{(game[8],0)[game[8] is none]}}</h3>

@@ -127,7 +127,7 @@ class db():
     def select_games_liked_by_user(self, user_id):
         cursor = self.connection.cursor()
 
-        sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
+        sql = """SELECT DISTINCT Game.*, T.likes_amount, Genre.name as Genre
                 FROM Client, Likes, Genre, HasGenre, Game 
                         LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
                         FROM Likes
@@ -137,7 +137,7 @@ class db():
                 AND HasGenre.genreid = Genre.genreid
                 AND Client.userId = Likes.userId
                 AND Likes.gameId = Game.gameId
-                AND Client.userId = 1
+                AND Client.userId = %s
                 ORDER BY Game.name DESC NULLS LAST;"""
         data = [user_id]
 
@@ -461,8 +461,14 @@ class db():
     def select_recommended_games(self, userid):
         cursor = self.connection.cursor()
         sql = """SELECT V.*, T.likes_amount, Genre.name as Genre
-                    FROM Genre, HasGenre, (SELECT Game.*
+                    FROM Genre, HasGenre, 
+                    (SELECT Likes.gameId
+                        FROM Likes
+                        WHERE Likes.userId = %s
+                    ) AS A,
+                    (SELECT Game.*
                     FROM Game, HasGenre, 
+
 
 
                     (SELECT B.genreId 
@@ -491,10 +497,12 @@ class db():
                                                 GROUP BY gameId) AS T
                     ON V.gameId = T.gameId
                     WHERE V.gameid = HasGenre.gameid
+                    AND V.gameId <> A.gameId
                     AND HasGenre.genreid = Genre.genreid
-                    ORDER BY T.likes_amount DESC NULLS LAST;
+                    ORDER BY T.likes_amount DESC NULLS LAST
+                    LIMIT 10;
                     """
-        data = [userid, userid]
+        data = [userid, userid, userid]
         cursor.execute(sql,data)
 
         results = cursor.fetchall()

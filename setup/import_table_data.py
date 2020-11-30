@@ -3,6 +3,8 @@ import logging
 import os
 import psycopg2 as pg
 import psycopg2.extras as pgex
+from dotenv import load_dotenv
+load_dotenv()
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)

@@ -90,3 +90,5 @@ PRIMARY KEY(userId, gameId),
 FOREIGN KEY(gameId) REFERENCES Game(gameId) ON DELETE CASCADE,
 FOREIGN KEY(userId) REFERENCES Client(userId) ON DELETE CASCADE
 );
+
+SELECT setval('client_userid_seq', 100, true);
