@@ -24,8 +24,10 @@ pip install -r requirements.txt
 ```
 
 With postgres installed and with a running postgresql database, run the following set of commands:
-- ```createdb gamedb```
-- ```psql gamedb < dbdump.sql```
+```
+createdb gamedb
+psql gamedb < dbdump.sql
+```
 
 After your tables are setup, create a ```.env``` file under ```/app``` with the following code:
 ```
