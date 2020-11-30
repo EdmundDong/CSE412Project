@@ -15,7 +15,6 @@ Run the following commands in the project directory:
 
 ```
 virtualenv venv
-
 source venv/bin/activate
 ```
 
