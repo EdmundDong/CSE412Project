@@ -1,5 +1,10 @@
-# CSE412Project
+# Game DB: 
 #
+A searchable games database with a game recommendation system.
+
+
+## Setup Instructions
+
 Install venv with: 
 ```
 pip install virtualenv
@@ -18,22 +23,27 @@ Now that you are in your virtual environment run the following command to instal
 pip install -r requirements.txt
 ```
 
-When you are done with working on the project and want to escape out of the virtual environment, deactive venv by running:
-```
-deactivate
-```
-
-Setup the data base by looking at the setup.sql file for the tables.
+With postgres installed and with a running postgresql database, run the following set of commands:
+- ```createdb gamedb```
+- ```psql -d gamedb -f setup.sql```
+- ```psql gamedb < dbdump.sql```
 
 ~~Modify the database.py connection parameters for the db as you see fit.~~
 
-After your tables are setup, create a ```.env``` file under ```/app``` with the following code:
+After your tables are setup, create a ```.env``` file under ```/app``` and ```/setup``` with the following code:
 ```
 DATABASE=<local database name>
 HOST=<optional depending on config, local database host>
 PORT=<optional depending on config, local database port>
+USER=<optional depending on config, local database user>
+PASS=<optional depending on config, local database user's password>
 ```
 
 Use ```flask run``` while in the main folder to run the server. The server should be visable at http://localhost:5000/
+
+When you are done with working on the project and want to escape out of the virtual environment, deactive venv by running:
+```
+deactivate
+```
 
 PostgreSQL database with a Flask server.
