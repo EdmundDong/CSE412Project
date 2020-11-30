@@ -457,6 +457,51 @@ class db():
         cursor.close()
 
         return results
+        
+    def select_recommended_games(self, userid):
+        cursor = self.connection.cursor()
+        sql = """SELECT V.*, T.likes_amount, Genre.name as Genre
+                    FROM Genre, HasGenre, (SELECT Game.*
+                    FROM Game, HasGenre, 
+
+
+                    (SELECT B.genreId 
+                    FROM (SELECT MAX(T.counts) AS maxcounts
+                    FROM (SELECT COUNT(HasGenre.gameId) AS counts, Genre.genreId
+                        FROM Genre, Likes, HasGenre
+                        WHERE Likes.userId = %s
+                        AND Likes.gameId = HasGenre.gameId
+                        AND Genre.genreId = HasGenre.genreId
+                        GROUP BY Genre.genreId) AS T) AS U,
+
+                    (SELECT COUNT(HasGenre.gameId) AS counts, Genre.genreId
+                        FROM Genre, Likes, HasGenre
+                        WHERE Likes.userId = %s
+                        AND Likes.gameId = HasGenre.gameId
+                        AND Genre.genreId = HasGenre.genreId
+                        GROUP BY Genre.genreId) AS B
+
+
+
+                    WHERE U.maxcounts = B.counts ) AS C
+                    WHERE HasGenre.genreId = C.genreId
+                    AND Game.gameId = HasGenre.gameId) As V
+                    LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
+                                                FROM Likes
+                                                GROUP BY gameId) AS T
+                    ON V.gameId = T.gameId
+                    WHERE V.gameid = HasGenre.gameid
+                    AND HasGenre.genreid = Genre.genreid
+                    ORDER BY T.likes_amount DESC NULLS LAST;
+                    """
+        data = [userid, userid]
+        cursor.execute(sql,data)
+
+        results = cursor.fetchall()
+
+        cursor.close()
+
+        return results
     
     def __del__(self):
         if self.connection is not None:

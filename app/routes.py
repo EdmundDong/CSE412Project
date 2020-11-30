@@ -140,6 +140,11 @@ def profile_info(user_id):
     games = db_instance.select_games_liked_by_user(user_id)
     return jsonify({"games": games})
 
+@flaskapp.route("/api/profile/recommended/<int:user_id>", methods=["GET"])
+def profile_info(user_id):
+    games = db_instance.select_recommended_games(user_id)
+    return jsonify({"games": games})
+
 @flaskapp.route('/game/<int:game_id>/')
 def game(game_id):
     games = db_instance.select_gamepage_by_gameid(game_id)
