@@ -32,8 +32,9 @@ psql gamedb < gamedbdump.sql
 After your tables are setup, create a ```.env``` file under ```app/``` with the following code:
 ```
 DATABASE=gamedb
-HOST=<optional depending on config, local database host>
-PORT=<optional depending on config, local database port>
+HOST=<optional depending on postgres config, local database host>
+PORT=<optional depending on postgres config, local database port>
+PASS=<optional depending on postgres config, local database password>
 ```
 
 Run the command ```flask run``` while in the project root directory to start the server. The server should now be visible at http://localhost:5000/.
