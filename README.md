@@ -29,7 +29,7 @@ With postgres installed and with a running postgresql database, run the followin
 
 ~~Modify the database.py connection parameters for the db as you see fit.~~
 
-After your tables are setup, create a ```.env``` file under ```/app``` and ```/setup``` with the following code:
+After your tables are setup, create a ```.env``` file under ```/app``` with the following code:
 ```
 DATABASE=gamedb
 HOST=<optional depending on config, local database host>
