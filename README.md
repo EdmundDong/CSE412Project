@@ -27,8 +27,6 @@ With postgres installed and with a running postgresql database, run the followin
 - ```createdb gamedb```
 - ```psql gamedb < dbdump.sql```
 
-~~Modify the database.py connection parameters for the db as you see fit.~~
-
 After your tables are setup, create a ```.env``` file under ```/app``` with the following code:
 ```
 DATABASE=gamedb
