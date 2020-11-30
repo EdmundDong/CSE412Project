@@ -162,6 +162,7 @@ def publisher(company_id):
 def developer(company_id):
     games = db_instance.select_games_developed_by_developer(company_id)
     company = db_instance.get_developer_name(company_id)
+    print(games)
     return render_template("main.html", page = "developer", games = games, company = company[0][0])
 
 @flaskapp.route('/api/game/<int:game_id>/<int:user_id>', methods=["GET"])

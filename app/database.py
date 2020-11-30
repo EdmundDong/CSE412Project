@@ -206,15 +206,15 @@ class db():
         cursor = self.connection.cursor()
 
         sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre, Developer.name as Developer
-                    FROM HasPublisher, Developer, Genre, HasGenre, Game 
+                    FROM HasDeveloper, Developer, Genre, HasGenre, Game 
                         LEFT JOIN (SELECT COUNT(userId) AS likes_amount, gameId
                         FROM Likes
                         GROUP BY gameId) AS T
                     ON Game.gameId = T.gameId
                     WHERE Game.gameid = HasGenre.gameid
                     AND HasGenre.genreid = Genre.genreid
-                    AND Game.gameId = HasPublisher.gameId
-                    AND HasPublisher.pubId = Developer.devId
+                    AND Game.gameId = HasDeveloper.gameId
+                    AND HasDeveloper.devId = Developer.devId
                     AND Developer.devid = %s
                     ORDER BY releaseDate DESC;"""
         data = [developerid]
@@ -348,52 +348,6 @@ class db():
 
         return results
 
-    def get_number_likes_for_game(self, game_id):
-        cursor = self.connection.cursor()
-        sql = """SELECT COUNT(userId)
-                FROM (Likes
-                    NATURAL JOIN Game)
-                WHERE gameId = selectedGameId;"""
-
-        cursor.execute(sql)
-
-        results = cursor.fetchall()
-
-        cursor.close()
-
-        return results
-
-    def select_games_user_likes(self, username):
-        cursor = self.connection.cursor()
-        sql = """SELECT Game.*
-                    FROM Client, Likes, Game
-                    WHERE Client.userId = Likes.userId AND Likes.gameId = Game.gameId AND Client.username = %s;
-                    """
-        data = [username]
-        cursor.execute(sql,data)
-
-        results = cursor.fetchall()
-
-        cursor.close()
-
-        return results
-    
-    def select_games_by_platform(self, platform_id):
-        cursor = self.connection.cursor()
-        sql = """SELECT Game.*
-                FROM Game, Platform, HasPlatform
-                WHERE Game.gameId = HasPlatform.GameId 
-                    AND Platform.platformId = HasPlatform.platformId 
-                    AND Platform.platformId = %s;"""
-        data = [platform_id]
-        cursor.execute(sql,data)
-
-        results = cursor.fetchall()
-
-        cursor.close()
-
-        return results
-
     def select_games_by_query_string(self, query_string):
         cursor = self.connection.cursor()
         sql = """SELECT Game.*, T.likes_amount, Genre.name as Genre
@@ -408,21 +362,6 @@ class db():
                     ORDER BY T.likes_amount DESC NULLS LAST;
                     """
         data = ["%"+query_string+"%"]
-        cursor.execute(sql,data)
-
-        results = cursor.fetchall()
-
-        cursor.close()
-
-        return results
-        
-    def select_game_by_gameid(self, gameid):
-        cursor = self.connection.cursor()
-        sql = """SELECT *
-                    FROM Game
-                    WHERE gameid = %s;
-                    """
-        data = [gameid]
         cursor.execute(sql,data)
 
         results = cursor.fetchall()
