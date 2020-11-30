@@ -1,4 +1,4 @@
-# CSE412Project
+# Game DB: A searchable games database with a game recommendation system.
 #
 
 ## Setup Instructions
