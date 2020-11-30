@@ -1,6 +1,6 @@
 # Game DB
 #
-A searchable games database with a game recommendation system.
+A searchable games database with a game recommendation system. Built with PostgreSQL and Flask.
 
 
 ## Setup Instructions
@@ -29,18 +29,16 @@ createdb gamedb
 psql gamedb < dbdump.sql
 ```
 
-After your tables are setup, create a ```.env``` file under ```/app``` with the following code:
+After your tables are setup, create a ```.env``` file under ```app/``` with the following code:
 ```
 DATABASE=gamedb
 HOST=<optional depending on config, local database host>
 PORT=<optional depending on config, local database port>
 ```
 
-Use ```flask run``` while in the main folder to run the server. The server should be visable at http://localhost:5000/
+Run the command ```flask run``` while in the project root directory to start the server. The server should now be visible at http://localhost:5000/.
 
-When you are done with working on the project and want to escape out of the virtual environment, deactive venv by running:
+When you are done with working on the project and want to exit the virtual environment, deactive venv by running:
 ```
 deactivate
 ```
-
-PostgreSQL database with a Flask server.
