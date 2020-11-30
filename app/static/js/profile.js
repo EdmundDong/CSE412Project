@@ -57,7 +57,7 @@ function populate_profile_likes(games){
     if (games.length > 0){
         document.getElementById("liked_games").innerHTML = htmlout
     }else{
-        document.getElementById("liked_games").innerHTML = '<h3 style = "width: 100%; text-align: center;">You have not liked a game.</h3>'
+        document.getElementById("liked_games").innerHTML = '<h3 style = "width: 100%; text-align: center;">You have not liked any game.</h3>'
     }
     
 
