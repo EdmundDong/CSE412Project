@@ -92,7 +92,7 @@ function populate_recommended(games){
     if (games.length > 0){
         document.getElementById("recommended_games").innerHTML = htmlout
     }else{
-        document.getElementById("recommended_games").innerHTML = '<h3 style = "width: 100%; text-align: center;">You have not liked a game.</h3>'
+        document.getElementById("recommended_games").innerHTML = '<h3 style = "width: 100%; text-align: center;">Games will be recommended after you like a game.</h3>'
     }
     
 
