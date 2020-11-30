@@ -25,7 +25,6 @@ pip install -r requirements.txt
 
 With postgres installed and with a running postgresql database, run the following set of commands:
 - ```createdb gamedb```
-- ```psql -d gamedb -f setup.sql```
 - ```psql gamedb < dbdump.sql```
 
 ~~Modify the database.py connection parameters for the db as you see fit.~~
@@ -35,8 +34,6 @@ After your tables are setup, create a ```.env``` file under ```/app``` and ```/s
 DATABASE=<local database name>
 HOST=<optional depending on config, local database host>
 PORT=<optional depending on config, local database port>
-USER=<optional depending on config, local database user>
-PASS=<optional depending on config, local database user's password>
 ```
 
 Use ```flask run``` while in the main folder to run the server. The server should be visable at http://localhost:5000/
