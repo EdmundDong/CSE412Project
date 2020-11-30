@@ -1,0 +1,2 @@
+#!/bin/bash
+psql -d gamedb -f reset.sql && psql -d gamedb -f setup.sql && cd setup && python3 import_table_data.py && cd ..
